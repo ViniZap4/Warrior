@@ -1,0 +1,11 @@
+.scene01{
+  @include dflex(flex-end,flex-start, wrap); 
+  background-image: url($backgroundPath);
+  background-size: cover;
+  background-position-y: bottom;
+  width: 90vw;
+  height: 72vh;
+  padding-bottom: 5vh;
+
+  @include borderZapala();
+}

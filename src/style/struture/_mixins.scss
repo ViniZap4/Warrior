@@ -1,0 +1,12 @@
+@mixin dflex($align:center,$justify:center, $wrap: wrap ) {
+  display: flex;
+  align-items: $align;
+  justify-content: $justify;
+  flex-wrap: $wrap;  
+}
+
+@mixin borderZapala(){
+  box-shadow: 0px 0px 6.3vh rgb(124, 124, 124);
+  border-radius: 0.7vh;
+
+}

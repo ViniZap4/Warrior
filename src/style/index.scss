@@ -1,0 +1,12 @@
+$backgroundPath: '../img/background/waterWorld.gif';
+
+@import "./struture/mixins";
+
+@import './struture/struture';
+
+//import components styles
+@import './components/kaya/kaya';
+
+//import pages
+@import './page/main/main';
+@import './page/scene01/scenes01'

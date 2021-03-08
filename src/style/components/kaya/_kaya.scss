@@ -1,0 +1,29 @@
+.kaya{
+  // width: 69px;
+  // height:44px;
+  width: 138px;
+  height:88px;
+  background-size: 100% 100%;
+  transition:0.1s;
+}
+
+.inputActionKaya{
+  background-color:#00000000 ;
+  border:none;
+  position: absolute;
+  width: 90vw;
+  height: 72vh;
+  top:11vh;
+  left:5vw;
+  padding-bottom: 5vh;
+  color: #0000008a;
+  opacity: 0;
+
+  &:hover, &:focus{
+    background-color:#00000000 ;
+    border:none;
+    position: absolute;
+    outline: none;
+  }
+
+}
