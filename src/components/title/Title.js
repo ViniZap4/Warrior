@@ -8,7 +8,7 @@ export default function Title() {
       <div className="lineLogo">
         <img
           className="logo"
-          alt="joystick"
+          alt="joystick icon"
           src={logo}
         ></img>
         <h1 className="title">
