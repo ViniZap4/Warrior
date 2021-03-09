@@ -43,7 +43,7 @@ export default function Kaya() {
 
       }, 1)
     }
-    if (event.key === 'w' || event.key === 'ArrowUp' ){
+    if (event.key === 'w' || event.key === 'ArrowUp' ||  event.key === ' ' ){
       if(!jumpingLeft){
         setJumpingLeft(true)
         setLocationUp(50) 
