@@ -1,0 +1,36 @@
+.titleContent{
+  width: 100vw;
+  height: 9vh;
+ 
+  @include dflex(flex-start);
+  flex-direction: row;
+  margin: 0%;
+
+  background-color: rgb(255, 255, 255);
+
+  transition: 0.36s;
+}
+
+.lineLogo{
+  @include dflex();
+  flex-direction: row;
+  max-height:  9vh;
+  transition: 0.36s;
+
+  .logo{
+    display: flex;
+    max-height: 6vh;
+    max-width: 30%;
+    margin-right: 0.9vw;
+  }
+  
+  .title{
+    max-height: 90%;
+    font-size: 4.5vh;
+    color: #56aee9;
+    text-shadow: 0 0 0.9vh #00000049;
+  }
+
+  
+
+}

@@ -1,4 +1,6 @@
 $backgroundPath: '../img/background/waterWorld.gif';
+$playIconPath: '../img/icon/play/play-clould-100.png'; 
+
 
 @import "./struture/mixins";
 
@@ -6,6 +8,8 @@ $backgroundPath: '../img/background/waterWorld.gif';
 
 //import components styles
 @import './components/kaya/kaya';
+@import './components/title/title';
+@import './components/info/info';
 
 //import pages
 @import './page/main/main';

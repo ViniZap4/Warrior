@@ -45,6 +45,7 @@ export default function Kaya() {
     if (event.key === 'd' ||event.key === 'ArrowRight' ){
       setflip(1)
       setMovingRight(true)
+      setMovingLeft(false)
       setTimeout(function() {
         setLocationRight(locationRight+10) 
         setMeshKaya(kayaRunImg)
@@ -54,6 +55,7 @@ export default function Kaya() {
     if (event.key === 'a' || event.key === 'ArrowLeft' ){
       setflip(-1)
       setMovingLeft(true)
+      setMovingRight(false)
       setTimeout(function() {
         setLocationRight(locationRight-10) 
         setMeshKaya(kayaRunImg)
@@ -131,7 +133,7 @@ export default function Kaya() {
         if(movingLeft){
           slideEvent(-slideValue)
         }
-        else if(movingRight){
+        if(movingRight){
           slideEvent(slideValue)
         }
       }
@@ -161,8 +163,6 @@ export default function Kaya() {
       setMeshKaya(kayaIdleImg)
       setMovingLeft(false)
     }
-    if (event.key === 'w' || event.key === 'ArrowUp' ){
-    }
     if (event.key === 's' || event.key === 'ArrowDown' ){
       if(crouch){
         setCrouch(false)
@@ -176,16 +176,19 @@ export default function Kaya() {
   }
   
   function slideEvent(location){
-    setLocationRight(locationRight+location)
-    setTransition(0.2)
-    setSlide(true)
-
-    setMeshKaya(KayaSlideImg)
-    setTimeout(function() { 
-      setMeshKaya(kayaIdleImg) 
-      setSlide(false)
-
-    }, 500)
+    if(!jumping){
+      setLocationRight(locationRight+location)
+      setTransition(0.2)
+      setSlide(true)
+  
+      setMeshKaya(KayaSlideImg)
+      setTimeout(function() { 
+        setMeshKaya(kayaIdleImg) 
+        setSlide(false)
+  
+      }, 500)
+    }
+ 
     
   }
 
@@ -197,14 +200,6 @@ export default function Kaya() {
     <input type="text" className="inputActionKaya"
       onKeyDown={(event) => actionKaya(event)} 
       onKeyUp={(event) => stopActionKaya(event)} 
-    />
-    {/* <p style={{position:"absolute", top:"0vh"}}>
-    movingRight: {movingRight && "true"},  
-    movingLeft : {movingLeft && "true"}, 
-    jumpingLeft : {jumpingLeft}, 
-    locationRight : {locationRight}, 
-    locationUp : {locationUp}, 
-
-    </p> */}
+    ></input>
   </>);
 }

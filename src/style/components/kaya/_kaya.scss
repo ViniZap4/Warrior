@@ -1,5 +1,6 @@
 $kayaWidth:138px;
 $kayaHeight:88px;
+
 .kaya{
   // width: 69px;
   // height:44px;
@@ -11,23 +12,36 @@ $kayaHeight:88px;
   
 }
 
+
 .inputActionKaya{
-  background-color:#00000000 ;
+  background-color:#00000052;
+  background-image: url($playIconPath);
+  background-repeat: no-repeat;
+  background-position: center center;
   border:none;
   position: absolute;
   width: 90vw;
   height: 72vh;
-  top:11vh;
+  top:11.5vh;
   left:5vw;
   padding-bottom: 5vh;
-  color: #0000008a;
-  opacity: 0;
+  color: #00000000;
+  opacity: 1;
+  transition: 0.63s;
+  cursor: pointer;
+  @include borderZapala();
+
 
   &:hover, &:focus{
-    background-color:#00000000 ;
+ 
+    background-color:#00000031 ;
     border:none;
     position: absolute;
     outline: none;
+    
+    &:focus{
+       opacity: 0;
+    }
   }
 
 }
