@@ -79,6 +79,8 @@ code {
   background-position-y: bottom;
   width: 90vw;
   height: 72vh;
+  min-width: 138px;
+  min-height: 176px;
   padding-bottom: 4.76vh;
   -webkit-box-shadow: 0px 0px 6.3vh #7c7c7c;
           box-shadow: 0px 0px 6.3vh #7c7c7c;

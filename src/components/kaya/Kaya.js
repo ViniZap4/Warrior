@@ -9,7 +9,8 @@ import KayaToFallImg from '../../img/kaya/fall/tofall.gif'
 import kayaCrouchInitImg from '../../img/kaya/Crouch/Warrior_Crouch_init.gif'
 import kayaCrouchImg from '../../img/kaya/Crouch/Warrior_Crouch_state.gif'
 import kayaCrouchStopImg from '../../img/kaya/Crouch/Warrior_Crouch_stop.gif'
-
+import KayaSlideImg from '../../img/kaya/slide/Warrior-Slide.gif'
+import kayaAttackImg from '../../img/kaya/attack/Warrior_Attack.gif'
 
 export default function Kaya() {
   const [flip, setflip] = useState(1)
@@ -18,7 +19,10 @@ export default function Kaya() {
   const [movingLeft, setMovingLeft] = useState (false)
   const [jumping, setJumping] = useState (false)
   const [crouch, setCrouch] = useState(false)
+  const [slide, setSlide] = useState(false)
+  const [attack, setAttack] = useState(false)
 
+  const slideValue = 100;
   const [locationRight,setLocationRight ] = useState(0)
   const [locationUp,setLocationUp ] = useState(0)
   
@@ -30,12 +34,14 @@ export default function Kaya() {
     transform: `scaleX(${flip})`,
     marginLeft:`${locationRight}px`,
     marginBottom:`${locationUp}px`,
-    transition:`${transition}s`
+    transition:` margin ${transition}s`,
   }
 
 
   function actionKaya(event){
     console.log(event.key)
+
+    
     if (event.key === 'd' ||event.key === 'ArrowRight' ){
       setflip(1)
       setMovingRight(true)
@@ -57,12 +63,13 @@ export default function Kaya() {
     if (event.key === 'w' || event.key === 'ArrowUp' ||  event.key === ' ' ){
       if(!jumping){
         setJumping(true)
-        setLocationUp(50) 
-        setTransition(0.1)
+        setLocationUp(63) 
+        setTransition(0.2)
 
         if(movingRight){
-          setLocationRight(locationRight+50)
           setTransition(0.3)
+          setLocationRight(locationRight+50)
+          
         }
         if(movingLeft){
           setTransition(0.3)
@@ -80,10 +87,10 @@ export default function Kaya() {
           
           if(movingRight){
             setLocationRight(locationRight+100) 
-            setTransition(0.3)
+            setTransition(0.2)
           }
           if(movingLeft){
-            setTransition(0.3)
+            setTransition(0.2)
             setLocationRight(locationRight-100)
           }
           
@@ -104,25 +111,46 @@ export default function Kaya() {
         
         setTimeout(function() {
           
-          // if(movingRight){
-          //   setLocationRight(locationRight+100) 
-          //   setTransition(0.3)
-          // }
-          // else if(movingLeft){
-          //   setTransition(0.3)
-          //   setLocationRight(locationRight-100)
-          // }else{
+          if(movingRight && !slide){
+            slideEvent(slideValue)
+          }
+          else if(movingLeft && !slide){
+            slideEvent(-slideValue)
+          }else{
             setMeshKaya(kayaCrouchImg) 
-
-          // }
+            setCrouch(true)
+          }
           
 
         }, 150)
 
       }
     }
+    if (event.key === 'Shift'){
+      if(!slide){
+        if(movingLeft){
+          slideEvent(-slideValue)
+        }
+        else if(movingRight){
+          slideEvent(slideValue)
+        }
+      }
+    }
+    if (event.key === 'q'){
+      if(!attack){
+        
+        setAttack(true)
+        setMeshKaya(kayaAttackImg)
+     
+        setTimeout(function() { 
+          setMeshKaya(kayaIdleImg)
+          setAttack(false)
+        }, 2000)
+      }
+    }
   }
 
+  
   function stopActionKaya(event) {
     if (event.key === 'd' ||event.key === 'ArrowRight' ){
       setMeshKaya(kayaIdleImg)
@@ -136,14 +164,32 @@ export default function Kaya() {
     if (event.key === 'w' || event.key === 'ArrowUp' ){
     }
     if (event.key === 's' || event.key === 'ArrowDown' ){
-      setCrouch(false)
-      setMeshKaya(kayaCrouchStopImg)
-      setTimeout(function() { 
-        setMeshKaya(kayaIdleImg) 
-      }, 150)
+      if(crouch){
+        setCrouch(false)
+        setMeshKaya(kayaCrouchStopImg)
+        setTimeout(function() { 
+          setMeshKaya(kayaIdleImg) 
+        }, 150)
+      }
     }
+  
   }
   
+  function slideEvent(location){
+    setLocationRight(locationRight+location)
+    setTransition(0.2)
+    setSlide(true)
+
+    setMeshKaya(KayaSlideImg)
+    setTimeout(function() { 
+      setMeshKaya(kayaIdleImg) 
+      setSlide(false)
+
+    }, 500)
+    
+  }
+
+
   return (<>
     <div className="kaya" style={styleKaya}>
       

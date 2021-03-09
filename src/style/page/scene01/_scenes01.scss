@@ -5,6 +5,8 @@
   background-position-y: bottom;
   width: 90vw;
   height: 72vh;
+  min-width: $kayaWidth;
+  min-height: $kayaHeight*2;
   padding-bottom: 4.76vh;
 
   @include borderZapala();
