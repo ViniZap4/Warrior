@@ -5,7 +5,9 @@
   background-position-y: bottom;
   width: 90vw;
   height: 72vh;
-  padding-bottom: 5vh;
+  padding-bottom: 4.76vh;
 
   @include borderZapala();
+
+  overflow: hidden;
 }
