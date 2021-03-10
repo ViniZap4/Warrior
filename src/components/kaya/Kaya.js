@@ -122,10 +122,10 @@ export default function Kaya() {
     if (event.key === 'Shift'){
       if(!slide){
         if(movingLeft){
-          slideEvent(-slideValue)
+          slideEvent(-1,-slideValue)
         }
         if(movingRight){
-          slideEvent(slideValue)
+          slideEvent(1,slideValue)
         }
       }
     }
@@ -133,12 +133,10 @@ export default function Kaya() {
       attackEvent() 
     }
     if(event.key.toLowerCase() === 'q'){
-      slideEvent(-slideValue)
-      setflip(-1)
+      slideEvent(-1,-slideValue)
     }
     if(event.key.toLowerCase() === 'e'){
-      slideEvent(slideValue)
-      setflip(1)
+      slideEvent(1,slideValue)
     }
   }
 
@@ -193,8 +191,9 @@ export default function Kaya() {
   }
 
 
-  function slideEvent(location){
+  function slideEvent(flip,location){
     if(validAction()){
+      setflip(flip)
       setLocationRight(locationRight+location)
       setTransition(0.2)
       setSlide(true)
@@ -223,17 +222,42 @@ export default function Kaya() {
 
 
   useEffect(() => {
+    if (actionAtack === "Q"){
+      slideEvent(-1,-slideValue)
+      setActionAtack("")
+    }
+    if (actionAtack === "W"){
+     
+    }
+    if (actionAtack === "E"){
+      slideEvent(1,slideValue)
+      setActionAtack("")
+    }
+    if (actionAtack === "A"){
+      attackEvent()
+      setActionAtack("")
+    }
+    if (actionAtack === "S"){
+      attackEvent()
+      setActionAtack("")
+    }
+    if (actionAtack === "D"){
+      attackEvent()
+      setActionAtack("")
+      
+    }
     if (actionAtack === "F"){
       attackEvent()
-      setOpacityInput(0)
+      setActionAtack("")
     }
+    document.getElementById("myAnchor").focus()
   }, [actionAtack]);
 
   return (<>
     <div className="kaya" style={styleKaya}>
       
     </div>
-    <input type="text" className="inputActionKaya"
+    <input type="text" id="myAnchor" className="inputActionKaya"
       onKeyDown={(event) => actionKaya(event)} 
       onKeyUp={(event) => stopActionKaya(event)} 
       style={styleInput}
