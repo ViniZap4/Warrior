@@ -5,7 +5,6 @@ import Keyfont from '../KeyFont/Keyfont'
 import { useButtonContext } from '../../Context/buttonContext'
 
 export default function Info() {
-  const {actionAtack, setActionAtack } = useButtonContext()
 
   return (
     <div className="info">

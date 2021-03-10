@@ -49,13 +49,6 @@ export default function Kaya() {
     opacity:opacityInput
   }
 
-  useEffect(()=>{
-    if (actionAtack === "F"){
-      attackEvent()
-      setOpacityInput(0)
-    }
-  },[actionAtack])
-
 
 
   function actionKaya(event){    
@@ -229,6 +222,13 @@ export default function Kaya() {
   }
 
  
+  useEffect(()=>{
+    if (actionAtack === "F"){
+      attackEvent()
+      setOpacityInput(0)
+    }
+  },[actionAtack])
+
 
   return (<>
     <div className="kaya" style={styleKaya}>
