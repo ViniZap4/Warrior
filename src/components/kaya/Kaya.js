@@ -221,14 +221,13 @@ export default function Kaya() {
     } 
   }
 
- 
-  useEffect(()=>{
+
+  useEffect(() => {
     if (actionAtack === "F"){
       attackEvent()
       setOpacityInput(0)
     }
-  },[actionAtack])
-
+  }, [actionAtack]);
 
   return (<>
     <div className="kaya" style={styleKaya}>

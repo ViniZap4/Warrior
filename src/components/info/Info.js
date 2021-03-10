@@ -2,7 +2,6 @@ import React from 'react';
 
 import Keyfont from '../KeyFont/Keyfont'
 
-import { useButtonContext } from '../../Context/buttonContext'
 
 export default function Info() {
 
