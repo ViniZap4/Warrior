@@ -9,8 +9,10 @@ $playIconPath: '../img/icon/play/play-clould-100.png';
 //import components styles
 @import './components/kaya/kaya';
 @import './components/title/title';
+@import './components//KeyFont/keyfont';
 @import './components/info/info';
+
 
 //import pages
 @import './page/main/main';
-@import './page/scene01/scenes01'
+@import './page/scene01/scenes01';

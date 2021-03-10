@@ -1,4 +1,4 @@
-@mixin dflex($align:center,$justify:center, $wrap: wrap ) {
+@mixin dflex($align:center,$justify:center, $wrap: nowrap ) {
   display: flex;
   align-items: $align;
   justify-content: $justify;

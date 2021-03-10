@@ -1,0 +1,35 @@
+.keyfont{
+  @include dflex();
+  flex-direction: column;
+  border-radius: 0.45vh 0.45vh 0.6vh 0.6vh;
+  //box-shadow: 0.3vh 0.3vh 0.9vh #000;
+  overflow: hidden;
+  min-width: 5vh;
+  background-color: #90A4AE;
+  cursor: pointer;
+  .keyfontTop{
+    font-size: 3.6vh;
+    width: 100%;
+    @include dflex();
+
+    color: #546E7A;
+    border-radius: 0.45vh ;
+    background-color: #CFD8DC;
+    font-weight: 700;
+    span{
+      margin-right: 0.2vw;
+      margin-left: 0.2vw;
+      user-select: none;
+    }
+   
+
+  }
+
+  .keyfontBottom{
+    height: 0.612vh;
+    width: 100%;
+    background-color: #90A4AE;
+    transition: 0.18s;
+
+  }
+}

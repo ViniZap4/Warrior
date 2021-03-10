@@ -1,4 +1,4 @@
-import React,{ useState } from 'react';
+import React,{ useEffect, useState } from 'react';
 
 
 //import mesh Kaya
@@ -12,15 +12,19 @@ import kayaCrouchStopImg from '../../img/kaya/Crouch/Warrior_Crouch_stop.gif'
 import KayaSlideImg from '../../img/kaya/slide/Warrior-Slide.gif'
 import kayaAttackImg from '../../img/kaya/attack/Warrior_Attack.gif'
 
+//import context
+import {useButtonContext} from '../../Context/buttonContext'
 export default function Kaya() {
   const [flip, setflip] = useState(1)
   
   const [movingRight, setMovingRight] = useState (false)
   const [movingLeft, setMovingLeft] = useState (false)
+  const velocity  = 10;
   const [jumping, setJumping] = useState (false)
   const [crouch, setCrouch] = useState(false)
   const [slide, setSlide] = useState(false)
   const [attack, setAttack] = useState(false)
+  
 
   const slideValue = 100;
   const [locationRight,setLocationRight ] = useState(0)
@@ -28,6 +32,10 @@ export default function Kaya() {
   
   const [meshKaya, setMeshKaya] = useState(kayaIdleImg)
   const [transition, setTransition] = useState("0")
+
+  const {actionAtack, setActionAtack } = useButtonContext()
+
+
 
   var styleKaya = {
     backgroundImage:`url(${meshKaya})`,
@@ -37,32 +45,22 @@ export default function Kaya() {
     transition:` margin ${transition}s`,
   }
 
-
-  function actionKaya(event){
-    console.log(event.key)
-
-    
-    if (event.key === 'd' ||event.key === 'ArrowRight' ){
-      setflip(1)
-      setMovingRight(true)
-      setMovingLeft(false)
-      setTimeout(function() {
-        setLocationRight(locationRight+10) 
-        setMeshKaya(kayaRunImg)
-
-      }, 1)
+  useEffect(()=>{
+    if (actionAtack === "F"){
+      attackEvent() 
     }
-    if (event.key === 'a' || event.key === 'ArrowLeft' ){
-      setflip(-1)
-      setMovingLeft(true)
-      setMovingRight(false)
-      setTimeout(function() {
-        setLocationRight(locationRight-10) 
-        setMeshKaya(kayaRunImg)
+  },[actionAtack])
 
-      }, 1)
+
+
+  function actionKaya(event){    
+    if (event.key.toLowerCase() === 'd' ||event.key === 'ArrowRight' ){
+      moveEvent(1,velocity, true)
     }
-    if (event.key === 'w' || event.key === 'ArrowUp' ||  event.key === ' ' ){
+    if (event.key.toLowerCase() === 'a' || event.key === 'ArrowLeft' ){
+      moveEvent(-1,-velocity, false)
+    }
+    if (event.key.toLowerCase() === 'w' || event.key === 'ArrowUp' ||  event.key === ' ' ){
       if(!jumping){
         setJumping(true)
         setLocationUp(63) 
@@ -106,13 +104,11 @@ export default function Kaya() {
         }, 600)
       }
     }
-    if (event.key === 's' || event.key === 'ArrowDown' ){
-      if (!crouch && !jumping){
+    if (event.key.toLowerCase() === 's' || event.key === 'ArrowDown' ){
+      if(validAction()){
         setCrouch(true)
         setMeshKaya(kayaCrouchInitImg)
-        
-        setTimeout(function() {
-          
+        setTimeout(function() {        
           if(movingRight && !slide){
             slideEvent(slideValue)
           }
@@ -122,11 +118,8 @@ export default function Kaya() {
             setMeshKaya(kayaCrouchImg) 
             setCrouch(true)
           }
-          
-
         }, 150)
-
-      }
+      }      
     }
     if (event.key === 'Shift'){
       if(!slide){
@@ -138,32 +131,31 @@ export default function Kaya() {
         }
       }
     }
-    if (event.key === 'q'){
-      if(!attack){
-        
-        setAttack(true)
-        setMeshKaya(kayaAttackImg)
-     
-        setTimeout(function() { 
-          setMeshKaya(kayaIdleImg)
-          setAttack(false)
-        }, 2000)
-      }
+    if (event.key.toLowerCase() === 'f'){
+      attackEvent() 
+    }
+    if(event.key.toLowerCase() === 'q'){
+      slideEvent(-slideValue)
+      setflip(-1)
+    }
+    if(event.key.toLowerCase() === 'e'){
+      slideEvent(slideValue)
+      setflip(1)
     }
   }
 
   
   function stopActionKaya(event) {
-    if (event.key === 'd' ||event.key === 'ArrowRight' ){
+    if (event.key.toLowerCase() === 'd' ||event.key === 'ArrowRight' ){
       setMeshKaya(kayaIdleImg)
       setMovingRight(false)
 
     }
-    if (event.key === 'a' || event.key === 'ArrowLeft' ){
+    if (event.key.toLowerCase()=== 'a' || event.key === 'ArrowLeft' ){
       setMeshKaya(kayaIdleImg)
       setMovingLeft(false)
     }
-    if (event.key === 's' || event.key === 'ArrowDown' ){
+    if (event.key.toLowerCase() === 's' || event.key === 'ArrowDown' ){
       if(crouch){
         setCrouch(false)
         setMeshKaya(kayaCrouchStopImg)
@@ -174,24 +166,64 @@ export default function Kaya() {
     }
   
   }
+
+  function validAction(){
+    var valid = false
+    if(!attack){
+      if(!jumping){
+        if(!slide){
+          if(!crouch){
+            valid = true
+          }
+        }
+      }
+    }
+    return valid
+  }
   
+  function moveEvent(flip,velocity,right){
+   
+    setflip(flip) 
+    setMovingRight(right)
+    setMovingLeft(!right)
+    setTimeout(function() {
+      setLocationRight(locationRight+velocity) 
+      setMeshKaya(kayaRunImg)
+
+    }, 1)
+    
+  }
+
+
   function slideEvent(location){
-    if(!jumping){
+    if(validAction()){
       setLocationRight(locationRight+location)
       setTransition(0.2)
       setSlide(true)
-  
+
       setMeshKaya(KayaSlideImg)
       setTimeout(function() { 
         setMeshKaya(kayaIdleImg) 
         setSlide(false)
-  
-      }, 500)
-    }
- 
+
+      }, 500) 
+    } 
+  }
+  function  attackEvent() {
+    if(validAction()){
+      setAttack(true)
+      setMeshKaya(kayaAttackImg)
     
+      setTimeout(function() { 
+        setMeshKaya(kayaIdleImg)
+        setAttack(false)
+        setActionAtack("")
+      }, 2000)
+      
+    } 
   }
 
+ 
 
   return (<>
     <div className="kaya" style={styleKaya}>

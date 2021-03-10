@@ -1,6 +1,46 @@
 .info{
   height: 9vh;
   width: 100vw;
-  @include dflex();
+  max-width: 100vw;
+  @include dflex(center,space-around,wrap);
+  flex-direction: row;
+  font-weight: 600;
+  font-size: 3.6vh;
+  color: #0c0c0c;
+  margin-bottom: 6.3vh;
+}
+.layoutjoystick{
+  @include dflex(flex-start,flex-end);
+  flex-direction: column;
+  margin:0.9vh;
+  
+  .layoutjoystickLineTop{
+    @include dflex(flex-end, flex-end);
+    flex-direction: row;
+    height: 6.3vh;
+    
+  }
+  .layoutjoystickLineBottom{
+    @include dflex(flex-end, flex-end);
+    flex-direction: row;
+    height: 6.3vh;
+  }
+}
 
+
+.InfoActionContainer{
+  @include dflex();
+  margin:0.63vh;
+  
+
+
+  .InfoActionContainerText{
+    margin-left: 0.36vh;
+    font-weight: 600;
+    font-size: 2.7vh;
+    color: #0c0c0c;
+    @include dflex(center,flex-start);
+
+  }
+  
 }
