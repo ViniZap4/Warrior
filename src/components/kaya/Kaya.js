@@ -19,23 +19,23 @@ export default function Kaya() {
   
   const [movingRight, setMovingRight] = useState (false)
   const [movingLeft, setMovingLeft] = useState (false)
-  const velocity  = 10;
   const [jumping, setJumping] = useState (false)
   const [crouch, setCrouch] = useState(false)
   const [slide, setSlide] = useState(false)
   const [attack, setAttack] = useState(false)
   
 
-  const slideValue = 100;
   const [locationRight,setLocationRight ] = useState(0)
   const [locationUp,setLocationUp ] = useState(0)
   
+  const [opacityInput,  setOpacityInput] = useState()
   const [meshKaya, setMeshKaya] = useState(kayaIdleImg)
   const [transition, setTransition] = useState("0")
 
   const {actionAtack, setActionAtack } = useButtonContext()
 
-
+  const velocity  = 10;
+  const slideValue = 100;
 
   var styleKaya = {
     backgroundImage:`url(${meshKaya})`,
@@ -45,9 +45,14 @@ export default function Kaya() {
     transition:` margin ${transition}s`,
   }
 
+  var styleInput ={
+    opacity:opacityInput
+  }
+
   useEffect(()=>{
     if (actionAtack === "F"){
-      attackEvent() 
+      attackEvent()
+      setOpacityInput(0)
     }
   },[actionAtack])
 
@@ -232,6 +237,7 @@ export default function Kaya() {
     <input type="text" className="inputActionKaya"
       onKeyDown={(event) => actionKaya(event)} 
       onKeyUp={(event) => stopActionKaya(event)} 
+      style={styleInput}
     ></input>
   </>);
 }
