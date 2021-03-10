@@ -214,7 +214,7 @@ export default function Kaya() {
       setTimeout(function() { 
         setMeshKaya(kayaIdleImg)
         setAttack(false)
-        setActionAtack("")
+       
       }, 2000)
       
     } 
@@ -224,33 +224,34 @@ export default function Kaya() {
   useEffect(() => {
     if (actionAtack === "Q"){
       slideEvent(-1,-slideValue)
-      setActionAtack("")
+     
     }
     if (actionAtack === "W"){
      
     }
     if (actionAtack === "E"){
       slideEvent(1,slideValue)
-      setActionAtack("")
+     
     }
     if (actionAtack === "A"){
-      attackEvent()
-      setActionAtack("")
+      
+     
     }
     if (actionAtack === "S"){
-      attackEvent()
-      setActionAtack("")
+     
     }
     if (actionAtack === "D"){
-      attackEvent()
-      setActionAtack("")
+     
+     
       
     }
     if (actionAtack === "F"){
       attackEvent()
-      setActionAtack("")
+     
     }
     document.getElementById("myAnchor").focus()
+    setActionAtack("")
+
   }, [actionAtack]);
 
   return (<>
@@ -261,6 +262,10 @@ export default function Kaya() {
       onKeyDown={(event) => actionKaya(event)} 
       onKeyUp={(event) => stopActionKaya(event)} 
       style={styleInput}
+      autocapitalize="off" 
+      autocomplete="off"
+      spellcheck="false" 
+      autocorrect="off"
     ></input>
   </>);
 }
