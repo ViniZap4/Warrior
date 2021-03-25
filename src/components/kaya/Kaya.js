@@ -266,6 +266,9 @@ export default function Kaya() {
       autocomplete="off"
       spellcheck="false" 
       autocorrect="off"
+      readonly="true" 
+      ng-model="answer" 
+      ng-virtual-keyboard
     ></input>
   </>);
 }
