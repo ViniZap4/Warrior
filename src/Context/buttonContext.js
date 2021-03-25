@@ -4,15 +4,17 @@ const ButtonComponents = createContext()
 
 export default function ButtonComponentPrivider(props) {
   const [styleKeyfontBottom, setStyleKeyfontBottom] = useState({height:'0.612vh'})
-  const [actionAtack,setActionAtack ] = useState("")
-
+  const [actionButton,setActionButton ] = useState("")
+  const [stopActionButton,setStopActionButton] =  useState("")
   return(
     <ButtonComponents.Provider
       value={{
         styleKeyfontBottom,
         setStyleKeyfontBottom,
-        actionAtack,
-        setActionAtack
+        actionButton,
+        setActionButton,
+        stopActionButton,
+        setStopActionButton
       }}
     >
       {props.children}
@@ -27,13 +29,17 @@ export function  useButtonContext() {
   const {
     styleKeyfontBottom,
     setStyleKeyfontBottom,
-    actionAtack,
-    setActionAtack
+    actionButton,
+    setActionButton,
+    stopActionButton,
+    setStopActionButton
   } = context
   return{
     styleKeyfontBottom,
     setStyleKeyfontBottom,
-    actionAtack,
-    setActionAtack
+    actionButton,
+    setActionButton,
+    stopActionButton,
+    setStopActionButton
   }
 }

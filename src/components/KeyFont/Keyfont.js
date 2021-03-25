@@ -5,17 +5,19 @@ import { useButtonContext } from '../../Context/buttonContext'
 
 export default function Keyfont(props) {
   const [styleKeyfontBottom, setStyleKeyfontBottom] = useState({height:'0.612vh'})
-  const {setActionAtack } = useButtonContext()
+  const {setActionButton, setStopActionButton} = useButtonContext()
   function pressKey(){
     setStyleKeyfontBottom({
       height:'0.1vh',
     })
-    setActionAtack(props.children)
+    setActionButton(props.children)
   }
   function pressKeyUp(){
     setStyleKeyfontBottom({
       height:'0.612vh',
     })
+    setActionButton("")
+    setStopActionButton(props.children)
   }
 
   
