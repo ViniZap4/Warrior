@@ -20,8 +20,6 @@ export default function Keyfont(props) {
     setStopActionButton(props.children)
   }
 
-  
-
 
   return(
     <div className="keyfont" 
@@ -30,6 +28,7 @@ export default function Keyfont(props) {
       onMouseLeave={pressKeyUp}
       onTouchStart={pressKey}
       onTouchEnd={pressKeyUp}
+      onTouchCancel={pressKeyUp}
     >
       <div className="keyfontTop"><span>{props.children}</span></div>
       <div className="keyfontBottom"

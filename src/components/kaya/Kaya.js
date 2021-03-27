@@ -23,10 +23,10 @@ export default function Kaya() {
   const [crouch, setCrouch] = useState(false)
   const [slide, setSlide] = useState(false)
   const [attack, setAttack] = useState(false)
-  
+  const [falling, setFalling] = useState(false)
 
   const [locationRight,setLocationRight ] = useState(0)
-  const [locationUp,setLocationUp ] = useState(0)
+  const [locationUp,setLocationUp ] = useState()
   
   const [opacityInput,  setOpacityInput] = useState()
   const [meshKaya, setMeshKaya] = useState(kayaIdleImg)
@@ -34,8 +34,9 @@ export default function Kaya() {
 
   const {actionButton, setActionButton, stopActionButton ,setStopActionButton } = useButtonContext()
 
-  const velocity  = 10;
+  const velocity  = 10/9;
   const slideValue = 100;
+  const gravity = 10/10;
 
   var styleKaya = {
     backgroundImage:`url(${meshKaya})`,
@@ -52,18 +53,10 @@ export default function Kaya() {
 
 
   function actionKaya(event){    
-    if (event.key.toLowerCase() === 'd' ||event.key === 'ArrowRight' ){
-      setActionButton("D")
-    }
-    if (event.key.toLowerCase() === 'a' || event.key === 'ArrowLeft' ){
-      setActionButton("A")
-    }
-    if (event.key.toLowerCase() === 'w' || event.key === 'ArrowUp' ||  event.key === ' ' ){
-      jumpEvent()
-    }
-    if (event.key.toLowerCase() === 's' || event.key === 'ArrowDown' ){
-      crouchEvent()
-    }
+    if (event.key.toLowerCase() === 'd' ||event.key === 'ArrowRight' ) setActionButton("D")
+    if (event.key.toLowerCase() === 'a' || event.key === 'ArrowLeft' ) setActionButton("A")
+    if (event.key.toLowerCase() === 'w' || event.key === 'ArrowUp' ||  event.key === ' ' ) jumpEvent()
+    if (event.key.toLowerCase() === 's' || event.key === 'ArrowDown' ) crouchEvent()
     if (event.key === 'Shift'){
       if(!slide){
         if(movingLeft){
@@ -90,7 +83,6 @@ export default function Kaya() {
     if (event.key.toLowerCase() === 'd' ||event.key === 'ArrowRight' ){
       setActionButton("")
       setStopActionButton("D")
-
     }
     if (event.key.toLowerCase()=== 'a' || event.key === 'ArrowLeft' ){
       setActionButton("")
@@ -126,48 +118,33 @@ export default function Kaya() {
       setStopActionButton("")
     }, 1)
   }
+  function FallEvent(){
+    setFalling(true)
+    setTimeout(function() {
+      if(locationUp > 0)  {
+        setLocationUp(locationUp-gravity)
+        setMeshKaya(KayaToFallImg)
+      }
+      if(locationUp <= 0){
+        setFalling(false)
+      }
+    }, 1)
+  }
 
   function jumpEvent(){
     if(!jumping){
       setJumping(true)
-      setLocationUp(63) 
+      setLocationUp(100) 
       setTransition(0.2)
-
-      if(movingRight){
-        setTransition(0.3)
-        setLocationRight(locationRight+50)
-        
-      }
-      if(movingLeft){
-        setTransition(0.3)
-        setLocationRight(locationRight-50) 
-      }
-
       setMeshKaya(kayaJumpImg)
+    
       setTimeout(function() {
-        setMeshKaya(KayaToFallImg)
-      }, 200)
-
-      setTimeout(function() {
-        setMeshKaya(KayaToFallImg)
-        setLocationUp(0) 
-        
-        if(movingRight){
-          setLocationRight(locationRight+100) 
-          setTransition(0.2)
-        }
-        if(movingLeft){
-          setTransition(0.2)
-          setLocationRight(locationRight-100)
-        }
-        
-      }, 300)
-
-      setTimeout(function() {
-        setMeshKaya(kayaIdleImg)
+        // setMeshKaya(kayaIdleImg)
         setJumping(false)
         setTransition(0)
+        setMeshKaya(kayaIdleImg)
 
+        setFalling(true)
       }, 600)
     }
    
@@ -234,9 +211,9 @@ export default function Kaya() {
 
 
   useEffect(() => {
+
     if (actionButton === "Q"){
       slideEvent(-1,-slideValue)
-     
     }
     if (actionButton === "W"){
       jumpEvent()
@@ -245,16 +222,14 @@ export default function Kaya() {
       slideEvent(1,slideValue)
     }
     if (actionButton === "A"){
-      moveEvent(-1,-velocity/9, false) 
-      
-
+      moveEvent(-1,-velocity, false) 
     }
-    
+
     if (actionButton === "S"){
       crouchEvent()
     }
     if (actionButton === "D"){
-      moveEvent(1,velocity/9, true)
+      moveEvent(1,velocity, true)
     }
     if (actionButton === "F"){
       attackEvent()
@@ -271,15 +246,16 @@ export default function Kaya() {
     }
     if(stopActionButton === "S"){
       stopCrouch()
-
     }
+     FallEvent()
+    
     document.getElementById("myAnchor").focus()
     // console.log(actionButton)
     // if(stopActionButton !== ""){
     //   console.log(stopActionButton + " stop")
     // }
     
-  }, [actionButton, locationRight]);
+  }, [actionButton, locationRight, locationUp, jumping]);
 
   return (<>
     <div className="kaya" style={styleKaya}>
